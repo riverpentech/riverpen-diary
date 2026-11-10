@@ -1,6 +1,6 @@
 {
-  "name": "rdiary",
-  "version": "0.1.0",
+  "name": "riverpen-diary",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,9 +9,24 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@base-ui/react": "^1.9.0",
+    "@google/genai": "^2.3.0",
+    "@prisma/client": "^6.19.3",
+    "@riverpen/auth": "^1.3.3",
+    "class-variance-authority": "^0.7.1",
+    "cn": "^0.5.2",
+    "lucide-react": "^1.69.0",
+    "moment": "^2.31.0",
     "next": "16.4.5",
+    "next-themes": "^0.4.6",
+    "prisma": "^6.19.3",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-quill-new": "^3.8.3",
+    "riverpen-auth": "^1.3.4",
+    "shadcn": "^4.23.0",
+    "sonner": "^2.0.8",
+    "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",

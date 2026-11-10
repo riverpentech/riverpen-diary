@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model DiaryEntry {
+  id              String            @id @default(cuid())
+  userId          String            @map("user_id")
+  title           String?
+  content         String?           @db.Text
+  contentText     String?           @map("content_text") @db.Text
+  mood            String?
+  weather         String?
+  location        String?
+  entryDate       DateTime          @default(now()) @map("entry_date")
+  hasVoice        Boolean           @default(false) @map("has_voice")
+  isArchived      Boolean           @default(false) @map("is_archived")
+  isFavorite      Boolean           @default(false) @map("is_favorite")
+  language        String?           @default("en")
+  tags            DiaryTag[]
+  attachments     DiaryAttachment[]
+  voiceRecordings VoiceRecording[]
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([entryDate])
+  @@map("diary_entries")
+}
+
+model DiaryAttachment {
+  id        String     @id @default(cuid())
+  entryId   String     @map("entry_id")
+  entry     DiaryEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  fileUrl   String     @map("file_url")
+  fileType  String     @map("file_type")
+  fileName  String?    @map("file_name")
+  fileSize  Int?       @map("file_size")
+  createdAt DateTime   @default(now()) @map("created_at")
+
+  @@index([entryId])
+  @@map("diary_attachments")
+}
+
+model DiaryTag {
+  id        String       @id @default(cuid())
+  name      String
+  userId    String       @map("user_id")
+  entries   DiaryEntry[]
+  createdAt DateTime     @default(now()) @map("created_at")
+
+  @@unique([name, userId])
+  @@index([userId])
+  @@map("diary_tags")
+}
+
+model VoiceRecording {
+  id               String     @id @default(cuid())
+  entryId          String     @map("entry_id")
+  entry            DiaryEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  audioUrl         String     @map("audio_url")
+  durationSeconds  Float?     @map("duration_seconds")
+  transcript       String?    @db.Text
+  detectedLanguage String?    @map("detected_language")
+  createdAt        DateTime   @default(now()) @map("created_at")
+
+  @@index([entryId])
+  @@map("voice_recordings")
+}
+
+model WritingPrompt {
+  id          String   @id @default(cuid())
+  prompt      String   @db.Text
+  category    String?
+  createdDate DateTime @default(now()) @map("created_date")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("writing_prompts")
+}
