@@ -6,5 +6,5 @@ export default proxy({
 });
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"]
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|diary-logo\\.png|web-app-manifest-192x192\\.png|web-app-manifest-512x512\\.png).*)"]
 };

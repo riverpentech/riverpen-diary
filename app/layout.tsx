@@ -21,7 +21,13 @@ export const metadata: Metadata = {
   title: "RiverPen Diary",
   description: "Simple Diary App With Voice input",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/diary-logo.png",
+    apple: "/diary-logo.png",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "R Diary",
+    statusBarStyle: "default",
   },
   metadataBase: new URL("https://diary.riverpen.com"),
   openGraph: {
